@@ -12,9 +12,17 @@ html{
 .card-title{
     font-size: 25px;
 }
+.card{
+    transition: all .4s ease;
+
+}
 .card:hover{
-   
-    background: #555252;
-    color: white;
-    transition: all .3s ease;
+background: rgb(192, 187, 187);
+
+    scale: 102%;
+}
+.fa-trash:active{
+    scale: 90%;
+    color: green;
+    
 }

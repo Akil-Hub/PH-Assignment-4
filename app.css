@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.wrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px
+}
+html{
+    background-color: rgb(247, 245, 245);
+}

@@ -1,0 +1,464 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tailwind and daisy UI and app.css link -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/app.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  </head>
+  <body class="bg-gray-100 h-full">
+    <!-- Heading Start  -->
+    <header class="wrapper">
+      <nav class="sticky">
+        <h1 class="text-2xl font-bold pt-10 pb-3">Job Application Tracker</h1>
+
+        <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-3 bg-white rounded-lg">
+            <p>Total</p>
+            <h4 id="totalCount" class="text-xl font-bold">0</h4>
+          </div>
+
+          <div class="p-3 bg-white rounded-lg">
+            <p>Interview</p>
+            <h4 id="interviewCount" class="text-xl font-bold text-green-500">
+              0
+            </h4>
+          </div>
+
+          <div class="p-3 bg-white rounded-lg">
+            <p>Rejected</p>
+            <h4 id="rejectedCount" class="text-xl text-red-500 font-bold">0</h4>
+          </div>
+        </section>
+      </nav>
+    </header>
+
+    <!-- Heading End  -->
+
+    <!-- Main section start -->
+
+    <article id="mainContainer" class="wrapper">
+      <h2 class="text-2xl font-bold py-5">Available Jobs</h2>
+
+      <section class="flex justify-between pb-3">
+        <div class="btnGroup">
+          <button
+            onclick="toggleButton('allBtn')"
+            id="allBtn"
+            class="px-3 py-2 rounded-lg mx-2 bg-blue-500 text-white"
+          >
+            ALL
+          </button>
+          <button
+            onclick="toggleButton('interviewBtn')"
+            id="interviewBtn"
+            class="px-3 py-2 rounded-lg mx-2 bg-gray-300 text-black"
+          >
+            Interview
+          </button>
+          <button
+            onclick="toggleButton('rejectedBtn')"
+            id="rejectedBtn"
+            class="px-3 py-2 rounded-lg mx-2 bg-gray-300 text-black"
+          >
+            Rejected
+          </button>
+        </div>
+
+        <!-- BreadCrumbs -->
+        <p id="fullDynamicCount"><span id="dynamicCount">0</span> of 10</p>
+      </section>
+
+      <!-- Interview selected  job section -->
+
+      <section id="filteredJobs" class="hidden"></section>
+
+      <!-- rejected  job section -->
+
+      <section id="rejectedJobs" class="hidden"></section>
+
+      <!-- Empty  job section -->
+
+      <section
+        id="emptyJobs"
+        class="w-full h-40 flex flex-col items-center justify-center mb-30 hidden"
+      >
+        <div class="mx-auto mt-20">
+          <img src="./images/jobs.png" alt="empty" />
+          <h3>No Jobs found!!</h3>
+        </div>
+      </section>
+      <!-- job card section -->
+      <section id="jobCards" class="grid grid-cols-1 gap-4 pb-20">
+        <!-- Card 1 -->
+        <div class="card bg-base-100 shadow-xl mt-5">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">Tech Corp</h2>
+              <button
+                onclick="handleDelete('Tech Corp')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Frontend Developer</p>
+            <p><strong>Salary:</strong> $40k-$60k | Full Time</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Work on modern UI using HTML, CSS, and JavaScript to build
+              responsive web apps.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card bg-base-100 shadow-xl mt-5">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">DBBL Group</h2>
+              <button
+                onclick="handleDelete('DBBL Group')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Frontend Developer</p>
+            <p><strong>Salary:</strong> $40k-$60k | Full Time</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Work on modern UI using HTML, CSS, and JavaScript to build
+              responsive web apps.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">DataSoft</h2>
+              <button
+                onclick="handleDelete('DataSoft')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Backend Engineer</p>
+            <p><strong>Salary:</strong> $50k-$70k | Remote</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Develop APIs and manage databases with scalable server-side
+              solutions.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">Creative Studio</h2>
+              <button
+                onclick="handleDelete('Creative Studio')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> UI Designer</p>
+            <p><strong>Salary:</strong> $35k-$50k | Contract</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Design user-friendly interfaces and collaborate with developers.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">CloudNet</h2>
+              <button
+                onclick="handleDelete('CloudNet')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> DevOps Engineer</p>
+            <p><strong>Salary:</strong> $60k-$85k | Full Time</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Maintain CI/CD pipelines and monitor cloud infrastructure.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">FinTech Ltd</h2>
+              <button
+                onclick="handleDelete('FinTech Ltd')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Data Analyst</p>
+            <p><strong>Salary:</strong> $45k-$65k | Hybrid</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Analyze financial data and generate actionable insights.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">MarketGuru</h2>
+              <button
+                onclick="handleDelete('MarketGuru')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Digital Marketer</p>
+            <p><strong>Salary:</strong> $30k-$45k | Part Time</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Plan and execute online campaigns to boost brand presence.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">AppWorks</h2>
+              <button
+                onclick="handleDelete('AppWorks')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Mobile Developer</p>
+            <p><strong>Salary:</strong> $55k-$75k | Remote</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Build cross-platform apps with modern frameworks.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">SecureIT</h2>
+              <button
+                onclick="handleDelete('SecureIT')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Cybersecurity Specialist</p>
+            <p><strong>Salary:</strong> $65k-$90k | Full Time</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Protect systems by monitoring threats and implementing security
+              measures.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">Space X</h2>
+              <button
+                onclick="handleDelete('Space X')"
+                class="px-2 py-1 rounded-lg  text-white delete"
+              >
+                   <i class="fa-solid fa-trash text-2xl text-red-600"></i>
+              </button>
+            </div>
+            <p><strong>Post:</strong> Cybersecurity Specialist</p>
+            <p><strong>Salary:</strong> $635k-$903k | Full Time</p>
+            <button id="status" class="px-2 py-1 rounded-md w-fit"></button>
+            <p class="text-sm mt-2">
+              Protect systems by monitoring threats and implementing security
+              measures.
+            </p>
+            <div class="card-actions mt-3">
+              <button
+                id="interviewSubmitBtn"
+                class="btn interview btn-success btn-sm text-lg"
+              >
+                Interview
+              </button>
+              <button
+                id="rejectedSubmitBtn"
+                class="btn btn-error btn-sm text-lg rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    <!-- Main section end -->
+    <script src="/script.js"></script>
+  </body>
+</html>

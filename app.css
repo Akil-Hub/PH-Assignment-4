@@ -12,3 +12,9 @@ html{
 .card-title{
     font-size: 25px;
 }
+.card:hover{
+   
+    background: #555252;
+    color: white;
+    transition: all .3s ease;
+}

@@ -72,7 +72,6 @@ function toggleButton(id) {
 function checkEmpty() {
   if (activeTab === "interviewBtn") {
     emptyJobs.style.display = interviewList.length === 0 ? "flex" : "none";
-
   } else if (activeTab === "rejectedBtn") {
     emptyJobs.style.display = rejectedList.length === 0 ? "flex" : "none";
   } else {
